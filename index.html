@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بطاقات التعلم الذاتي - الصف الثاني (7) | المعلمة هنية أبوضاحي</title>
+    <title>اختبار تفاعلي شريف - بطاقات التعلم الذاتي | المعلمة هنية أبو ضاحي</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Tajawal -->
@@ -13,38 +13,25 @@
 
     <style>
         * {
-            touch-action: manipulation; /* Prevents double-tap zoom delays on mobile */
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             font-family: 'Tajawal', sans-serif;
             background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 50%, #fce7f3 100%);
             min-height: 100vh;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Animations */
-        @keyframes bounce-gentle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
         }
         .animate-bounce-gentle {
             animation: bounce-gentle 2.5s infinite ease-in-out;
         }
-
-        @keyframes pulse-star {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
-        .animate-star {
-            animation: pulse-star 1.5s infinite ease-in-out;
-        }
-
         .card-shadow {
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
         }
-
-        /* Canvas Overlay for Confetti */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -54,10 +41,8 @@
             pointer-events: none;
             z-index: 999;
         }
-
-        /* Touch friendly buttons */
-        button, div[role="button"] {
-            min-height: 44px;
+        button {
+            min-height: 48px;
         }
     </style>
 </head>
@@ -66,219 +51,178 @@
     <canvas id="confetti-canvas"></canvas>
 
     <!-- Header Banner -->
-    <header class="mb-5 bg-white rounded-3xl p-4 md:p-6 card-shadow border-4 border-yellow-300 relative overflow-hidden">
+    <header class="mb-5 bg-white rounded-3xl p-4 sm:p-6 card-shadow border-4 border-yellow-300 relative overflow-hidden">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right">
             <div class="flex items-center gap-3">
-                <span class="text-4xl md:text-5xl animate-bounce-gentle">🌍</span>
+                <span class="text-4xl sm:text-5xl animate-bounce-gentle">🌍</span>
                 <div>
-                    <span class="bg-amber-100 text-amber-800 text-xs md:text-sm font-bold px-3 py-1 rounded-full border border-amber-300 inline-block">
+                    <span class="bg-amber-100 text-amber-900 text-xs sm:text-sm font-black px-3 py-1 rounded-full border border-amber-300 inline-block">
                         بطاقات التعلم الذاتي - الوحدة الثانية: الأرض
                     </span>
-                    <h1 class="text-2xl md:text-3xl font-black text-sky-700 mt-1">
+                    <h1 class="text-2xl sm:text-3xl font-black text-sky-700 mt-1">
                         اللغة العربية - الصف الثاني (7)
                     </h1>
-                    <p class="text-sm md:text-base font-bold text-pink-600 mt-0.5 flex items-center justify-center sm:justify-start gap-1">
+                    <p class="text-sm sm:text-base font-bold text-pink-600 mt-0.5 flex items-center justify-center sm:justify-start gap-1">
                         <span>👩‍🏫 إعداد وإشراف المعلمة:</span>
-                        <span class="underline decoration-pink-300">هنية أبوضاحي</span>
+                        <span class="underline decoration-pink-300 font-black">هنية أبو ضاحي</span>
                     </p>
                 </div>
             </div>
 
-            <!-- Score & Progress -->
+            <!-- Score & Progress Bar -->
             <div class="bg-sky-50 p-3 rounded-2xl border-2 border-sky-200 flex flex-row sm:flex-col items-center justify-between w-full sm:w-auto min-w-[140px] px-4">
                 <div class="flex items-center gap-1 text-amber-500 font-bold text-lg">
-                    <span class="animate-star">⭐</span>
+                    <span>⭐</span>
                     <span id="score-display">0</span>
                     <span class="text-slate-400 text-sm">/ 30</span>
                 </div>
                 <div class="w-28 sm:w-full bg-slate-200 rounded-full h-3 overflow-hidden my-1">
                     <div id="progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
-                <span class="text-xs text-sky-800 font-semibold" id="progress-text">واصل البطل! 🎉</span>
+                <span class="text-xs text-sky-800 font-bold" id="progress-text">واصل يا بطل! 🎉</span>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Exercises List -->
     <main class="space-y-6">
 
         <!-- ==================== TADREEB 1: BALLOONS (د vs ذ) ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-red-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-red-600 flex items-center gap-2">
-                    <span>🎈</span> التدريب (1): بالونات د وَ ذ
+                <h2 class="text-lg sm:text-xl font-black text-red-600 flex items-center gap-2">
+                    <span>🎈</span> التدريب (1): بالونات حرفي (د) وَ (ذ)
                 </h2>
-                <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-1 rounded-full">اختر اللون تحت كل بالون</span>
+                <span class="text-xs bg-red-100 text-red-800 font-bold px-2.5 py-1 rounded-full">اختر لون البالون</span>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                نَقْرَأُ، وَنُلَوِّنُ الْبَالُونَ الَّذِي فِيهِ حَرْفُ <span class="text-red-600 font-black text-lg">(د)</span> بِالأَحْمَرِ، وَالَّذِي فِيهِ حَرْفُ <span class="text-blue-600 font-black text-lg">(ذ)</span> بِالأَزْرَقِ:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                نَقْرَأُ، وَنُلَوِّنُ البَالُونَ الَّذِي فِيهِ حَرْفُ <span class="text-red-600 font-black text-lg">(د)</span> بِالأَحْمَرِ، وَالَّذِي فِيهِ حَرْفُ <span class="text-blue-600 font-black text-lg">(ذ)</span> بِالأَزْرَقِ:
             </p>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4" id="balloons-container">
-                <!-- Javascript will inject balloon cards -->
-            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="balloons-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 2: TAJREED RAA' (ر) ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-amber-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-amber-600 flex items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-black text-amber-600 flex items-center gap-2">
                     <span>🔍</span> التدريب (2): تَجْرِيدُ حَرْفِ (ر)
                 </h2>
-                <span class="text-xs bg-amber-100 text-amber-700 font-bold px-2 py-1 rounded-full">إصبعك على حرف ر</span>
+                <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full">اضغط على حرف (ر)</span>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                نَقْرَأُ، وَنُجَرِّدُ حَرْفَ <span class="text-amber-600 font-black text-lg">(ر)</span> بِالضَّغْطِ عَلَيْهِ فِي الكَلِمَاتِ:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                نَقْرَأُ، وَنُجَرِّدُ حَرْفَ <span class="text-amber-600 font-black text-lg">(ر)</span> بِالضَّغْطِ عَلَيْهِ فِي الكَلِمَاتِ الآتِيَةِ:
             </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="tajreed-container">
-                <!-- Javascript populates words -->
-            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="tajreed-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 3: ZAY (ز) CIRCLE ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-emerald-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-emerald-600 flex items-center gap-2">
-                    <span>⭕</span> التدريب (3): دَائِرَةٌ حَوْلَ الكَلِمَةِ الَّتِي تَحْتَوِي (ز)
+                <h2 class="text-lg sm:text-xl font-black text-emerald-600 flex items-center gap-2">
+                    <span>⭕</span> التدريب (3): دَائِرَةٌ حَوْلَ الكَلِمَةِ الَّتِي تَحْتَوِي عَلَى (ز)
                 </h2>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                اضغط على الكلمات التي تحتوي على حرف <span class="text-emerald-600 font-black text-lg">(ز)</span> لِتَضَعَ حَوْلَهَا دَائِرَةً:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                اضغط على الكلمات التي تحتوي على حرف <span class="text-emerald-600 font-black text-lg">(ز)</span> فقط:
             </p>
-
-            <div class="flex flex-wrap justify-center gap-3" id="zay-container">
-                <!-- Words injected via JS -->
-            </div>
+            <div class="flex flex-wrap justify-center gap-3" id="zay-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 4: CLASSIFY SIN & SHIN (س / ش) ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-indigo-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-indigo-600 flex items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-black text-indigo-600 flex items-center gap-2">
                     <span>🧺</span> التدريب (4): تَصْنِيفُ الكَلِمَاتِ (س / ش)
                 </h2>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                اختر الحرف الصحيح لكل كلمة:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                حدد الحرف المناسب لكل كلمة من الكلمات التالية:
             </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="sin-shin-container">
-                <!-- Words injected via JS -->
-            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="sin-shin-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 5: COMPLETE SAD (ص / ـص) ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-pink-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-pink-600 flex items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-black text-pink-600 flex items-center gap-2">
                     <span>✏️</span> التدريب (5): كِتَابَةُ حَرْفِ (ص ، ـص)
                 </h2>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                اختر الشكل المناسب لحرف <span class="text-pink-600 font-black text-lg">(ص)</span> لتكتمل الكلمة:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                اختر الشكل الصحيح لحرف <span class="text-pink-600 font-black text-lg">(ص)</span> لتكتمِل الكلمة:
             </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="sad-container">
-                <!-- Injected JS -->
-            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="sad-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 6: DAD (ض) RECTANGLES ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-teal-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-teal-600 flex items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-black text-teal-600 flex items-center gap-2">
                     <span>🟩</span> التدريب (6): مستطيل كلمة فيها (ض)
                 </h2>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                اضغط على المستطيلات التي تحتوي كلمة بها حرف <span class="text-teal-600 font-black text-lg">(ض)</span>:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                اضغط على المستطيلات التي تحتوي على كلمة بها حرف <span class="text-teal-600 font-black text-lg">(ض)</span>:
             </p>
-
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="dad-container">
-                <!-- Injected JS -->
-            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="dad-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 7: TAHLIL (تحليل الكلمات) ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-orange-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-orange-600 flex items-center gap-2">
-                    <span>✂️</span> التدريب (7): تَحْلِيلُ الْكَلِمَاتِ
+                <h2 class="text-lg sm:text-xl font-black text-orange-600 flex items-center gap-2">
+                    <span>✂️</span> التدريب (7): تَحْلِيلُ الْكَلِمَاتِ إِلَى حُرُوفٍ
                 </h2>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                اختر التحليل الحرفي الصحيح للكلمة:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                اختر التحليل الحرفي الصحيح والدقيق لكل كلمة:
             </p>
-
-            <div class="space-y-4" id="tahlil-container">
-                <!-- Injected JS -->
-            </div>
+            <div class="space-y-3" id="tahlil-container"></div>
         </section>
-
 
         <!-- ==================== TADREEB 8: TARKEEB (تركيب الكلمات) ==================== -->
         <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-purple-200">
             <div class="border-b pb-3 mb-4 flex justify-between items-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-purple-600 flex items-center gap-2">
-                    <span>🧩</span> التدريب (8): تَرْكِيبُ المَقَاطِعِ
+                <h2 class="text-lg sm:text-xl font-black text-purple-600 flex items-center gap-2">
+                    <span>🧩</span> التدريب (8): تَرْكِيبُ المَقَاطِعِ وَالحُرُوفِ
                 </h2>
             </div>
-
-            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
-                اختر الكلمة المركبة الصحيحة من المقاطع:
+            <p class="text-slate-700 mb-4 font-bold text-sm sm:text-base">
+                ركّب المقاطع التالية لِتُكوِّن كلمة صحيحة:
             </p>
-
-            <div class="space-y-4" id="tarkeeb-container">
-                <!-- Injected JS -->
-            </div>
+            <div class="space-y-3" id="tarkeeb-container"></div>
         </section>
 
-
-        <!-- Action Footer -->
+        <!-- Buttons -->
         <div class="flex flex-col sm:flex-row justify-center items-center gap-3 py-4">
             <button onclick="checkFinalResult()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-lg sm:text-xl px-8 py-4 rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
-                <span>🏆</span> إنهاء والتحقق من النتيجة الكلية
+                <span>🏆</span> إنهاء الاختبار والتحقق من النتيجة
             </button>
             <button onclick="resetAll()" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 active:scale-95 text-slate-700 font-bold text-base sm:text-lg px-6 py-4 rounded-2xl transition flex items-center justify-center gap-2">
-                <span>🔄</span> إعادة المحاولة
+                <span>🔄</span> إعادة الاختبار
             </button>
         </div>
 
     </main>
 
     <!-- Footer Credit -->
-    <footer class="text-center text-slate-500 font-semibold py-6 text-xs sm:text-sm">
-        الصف الثاني (7) - إشراف المعلمة القديرة: <span class="text-sky-700 font-bold">هنية أبوضاحي</span> 🌟
+    <footer class="text-center text-slate-500 font-bold py-6 text-xs sm:text-sm">
+        الصف الثاني (7) - إشراف المعلمة القديرة: <span class="text-sky-700">هنية أبو ضاحي</span> 🌟
     </footer>
 
-
-    <!-- Final Celebration Modal -->
+    <!-- Result Modal -->
     <div id="result-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full text-center card-shadow border-4 border-yellow-400 relative animate-bounce-gentle">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center card-shadow border-4 border-yellow-400 relative animate-bounce-gentle">
             <div class="text-6xl mb-3">🌟🎉</div>
-            <h3 class="text-2xl md:text-3xl font-black text-sky-800 mb-2">أَحْسَنْتَ يَا بَطَلُ!</h3>
-            <p class="text-slate-600 font-semibold mb-4 text-base sm:text-lg" id="modal-message">لقد أتممت بطاقات اللغة العربية بنجاح ممتازة!</p>
+            <h3 class="text-2xl sm:text-3xl font-black text-sky-800 mb-2">أَحْسَنْتَ يَا بَطَلُ!</h3>
+            <p class="text-slate-600 font-bold mb-4 text-base sm:text-lg">لقد أتممت اختبار بطاقات اللغة العربية بنجاح!</p>
 
             <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 mb-5">
                 <span class="block text-slate-500 text-xs sm:text-sm font-bold">مجموع النجوم المحققة</span>
                 <span class="text-4xl font-black text-amber-500" id="modal-score">0 / 30</span>
             </div>
 
-            <p class="text-pink-600 font-bold text-sm mb-6">تحت إشراف المعلمة المتميزة: هنية أبوضاحي 👏</p>
+            <p class="text-pink-600 font-bold text-sm mb-6">تحت إشراف المعلمة المتميزة: هنية أبو ضاحي 👏</p>
 
             <button onclick="closeModal()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-lg px-8 py-3.5 rounded-2xl w-full shadow-md transition">
                 متابعة 🚀
@@ -286,10 +230,8 @@
         </div>
     </div>
 
-
-    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <!-- JS Logic -->
     <script>
-        // Sound effects via Web Audio API
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -355,14 +297,13 @@
             t8Tarkeeb: {}
         };
 
-        // DATA DEFINITIONS
+        // PDF Verified Data
         const balloonsData = [
-            { id: 'b1', word: 'عَادَ', correct: 'red', letter: 'د' },
-            { id: 'b2', word: 'أَخَذَ', correct: 'blue', letter: 'ذ' },
-            { id: 'b3', word: 'الْجَدِيدُ', correct: 'red', letter: 'د' },
-            { id: 'b4', word: 'دَارَ', correct: 'red', letter: 'د' },
-            { id: 'b5', word: 'شَدَّة', correct: 'red', letter: 'د' },
-            { id: 'b6', word: 'لَذِيذ', correct: 'blue', letter: 'ذ' }
+            { id: 'b1', word: 'عَادَ', correct: 'red' },
+            { id: 'b2', word: 'أَخَذَ', correct: 'blue' },
+            { id: 'b3', word: 'الْجَدِيدُ', correct: 'red' },
+            { id: 'b4', word: 'شِدَّةٌ', correct: 'red' },
+            { id: 'b5', word: 'لَذِيذٌ', correct: 'blue' }
         ];
 
         const tajreedData = [
@@ -403,20 +344,17 @@
         ];
 
         const tahlilData = [
-            { id: 'th1', word: 'شَمْس', options: ['شَـ | مْـ | سٌ', 'شمـ | س', 'ش | مس'], correct: 'شَـ | مْـ | سٌ' },
-            { id: 'th2', word: 'يَحْصُدُ', options: ['يَـ | حْـ | صُـ | دُ', 'يحـ | صـ | د', 'ي | حص | د'], correct: 'يَـ | حْـ | صُـ | دُ' },
-            { id: 'th3', word: 'الْأَرْض', options: ['ا | ل | أَ | رْ | ض', 'الـ | أرض', 'الـ | أضر'], correct: 'ا | ل | أَ | رْ | ض' }
+            { id: 'th1', word: 'شَمْس', options: ['شـ | مـ | س', 'شمـ | س', 'ش | مس'], correct: 'شـ | مـ | س' },
+            { id: 'th2', word: 'يَحْصُدُ', options: ['يـ | حـ | صـ | د', 'يحـ | صـ | د', 'ي | حص | د'], correct: 'يـ | حـ | صـ | د' },
+            { id: 'th3', word: 'الْأَرْضِ', options: ['ا | ل | أ | ر | ض', 'الـ | أرض', 'الـ | أضر'], correct: 'ا | ل | أ | ر | ض' }
         ];
 
         const tarkeebData = [
-            { id: 'tk1', parts: 'شَـ + مْـ + سٌ', options: ['شَمْس', 'سَمَش', 'مَشْس'], correct: 'شَمْس' },
-            { id: 'tk2', parts: 'يَـ + حْـ + صُـ + دُ', options: ['يَحْصُدُ', 'حَصَدَيُ', 'يَصْحُدُ'], correct: 'يَحْصُdُ' },
-            { id: 'tk3', parts: 'الْـ + أَ + رْ + ض', options: ['الْأَرْض', 'أَرْضَال', 'الرَّأْض'], correct: 'الْأَرْض' }
+            { id: 'tk1', parts: 'ذُ + رَ + ة', options: ['ذُرَة', 'رَذُة', 'ذَرَة'], correct: 'ذُرَة' },
+            { id: 'tk2', parts: 'دَ + ا + فِ + ئ', options: ['دَافِئ', 'فَادِئ', 'دَافِ'], correct: 'دَافِئ' },
+            { id: 'tk3', parts: 'تَ + نَ + ا + ثَ + رَ', options: ['تَنَاثَرَ', 'تَثَانَرَ', 'نَتَاثَرَ'], correct: 'تَنَاثَرَ' }
         ];
-        // Correct fix for typo in array element
-        tarkeebData[1].correct = 'يَحْصُدُ';
 
-        // RENDER FUNCTIONS
         function renderAll() {
             renderBalloons();
             renderTajreed();
@@ -429,7 +367,7 @@
             updateScoreBar();
         }
 
-        // T1: Balloons (Mobile friendly direct choice)
+        // T1
         function renderBalloons() {
             const container = document.getElementById('balloons-container');
             container.innerHTML = balloonsData.map(b => {
@@ -439,14 +377,14 @@
                 if (userChoice === 'blue') bgClass = 'bg-blue-50 border-blue-400';
 
                 return `
-                    <div class="border-2 rounded-2xl p-3 text-center ${bgClass} transition">
+                    <div class="border-2 rounded-2xl p-3 text-center ${bgClass}">
                         <div class="text-3xl mb-1">🎈</div>
                         <div class="text-lg font-black text-slate-800 mb-2">${b.word}</div>
                         <div class="flex gap-1 justify-center">
-                            <button onclick="clickBalloon('${b.id}', 'red')" class="flex-1 py-2 text-xs font-bold rounded-xl ${userChoice === 'red' ? (b.correct === 'red' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-red-100 text-red-700 hover:bg-red-200'}">
+                            <button onclick="clickBalloon('${b.id}', 'red')" class="flex-1 py-2 text-xs font-bold rounded-xl ${userChoice === 'red' ? (b.correct === 'red' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-red-100 text-red-700'}">
                                 🔴 أحمر (د)
                             </button>
-                            <button onclick="clickBalloon('${b.id}', 'blue')" class="flex-1 py-2 text-xs font-bold rounded-xl ${userChoice === 'blue' ? (b.correct === 'blue' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}">
+                            <button onclick="clickBalloon('${b.id}', 'blue')" class="flex-1 py-2 text-xs font-bold rounded-xl ${userChoice === 'blue' ? (b.correct === 'blue' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-blue-100 text-blue-700'}">
                                 🔵 أزرق (ذ)
                             </button>
                         </div>
@@ -464,7 +402,7 @@
             updateScoreBar();
         }
 
-        // T2: Tajreed Raa (Finger friendly tap)
+        // T2
         function renderTajreed() {
             const container = document.getElementById('tajreed-container');
             container.innerHTML = tajreedData.map(item => {
@@ -498,7 +436,7 @@
             updateScoreBar();
         }
 
-        // T3: Zay Circle
+        // T3
         function renderZay() {
             const container = document.getElementById('zay-container');
             container.innerHTML = zayData.map(item => {
@@ -528,7 +466,7 @@
             updateScoreBar();
         }
 
-        // T4: Sin vs Shin
+        // T4
         function renderSinShin() {
             const container = document.getElementById('sin-shin-container');
             container.innerHTML = sinShinData.map(item => {
@@ -558,7 +496,7 @@
             updateScoreBar();
         }
 
-        // T5: Sad Complete
+        // T5
         function renderSad() {
             const container = document.getElementById('sad-container');
             container.innerHTML = sadData.map(item => {
@@ -589,7 +527,7 @@
             updateScoreBar();
         }
 
-        // T6: Dad Rectangle
+        // T6
         function renderDad() {
             const container = document.getElementById('dad-container');
             container.innerHTML = dadData.map(item => {
@@ -619,7 +557,7 @@
             updateScoreBar();
         }
 
-        // T7: Tahlil
+        // T7
         function renderTahlil() {
             const container = document.getElementById('tahlil-container');
             container.innerHTML = tahlilData.map(item => {
@@ -648,7 +586,7 @@
             updateScoreBar();
         }
 
-        // T8: Tarkeeb
+        // T8
         function renderTarkeeb() {
             const container = document.getElementById('tarkeeb-container');
             container.innerHTML = tarkeebData.map(item => {
@@ -677,34 +615,16 @@
             updateScoreBar();
         }
 
-        // CALCULATE SCORE
         function calculateScore() {
             let score = 0;
-
-            // T1: 6 points
             balloonsData.forEach(b => { if (state.t1Balloons[b.id] === b.correct) score++; });
-
-            // T2: 5 points
             tajreedData.forEach(t => { if (state.t2Tajreed[t.id] === t.raaIdx) score++; });
-
-            // T3: 3 points
             zayData.filter(z => z.hasZay).forEach(z => { if (state.t3Zay[z.id]) score++; });
-
-            // T4: 4 points
             sinShinData.forEach(s => { if (state.t4SinShin[s.id] === s.correct) score++; });
-
-            // T5: 4 points
             sadData.forEach(s => { if (state.t5Sad[s.id] === s.correct) score++; });
-
-            // T6: 3 points
             dadData.filter(d => d.hasDad).forEach(d => { if (state.t6Dad[d.id]) score++; });
-
-            // T7: 3 points
             tahlilData.forEach(t => { if (state.t7Tahlil[t.id] === t.correct) score++; });
-
-            // T8: 2 points (or 3) -> Total 30
             tarkeebData.forEach(t => { if (state.t8Tarkeeb[t.id] === t.correct) score++; });
-
             return score;
         }
 
@@ -713,11 +633,10 @@
             document.getElementById('score-display').innerText = score;
             const pct = Math.min(100, Math.round((score / 30) * 100));
             document.getElementById('progress-bar').style.width = pct + '%';
-            
             const msg = document.getElementById('progress-text');
             if (score >= 25) msg.innerText = 'مبدع جداً! 🏆';
             else if (score >= 15) msg.innerText = 'ممتاز، تابع! ⭐';
-            else msg.innerText = 'واصل البطل! 🎉';
+            else msg.innerText = 'واصل يا بطل! 🎉';
         }
 
         function checkFinalResult() {
@@ -725,7 +644,6 @@
             document.getElementById('modal-score').innerText = score + ' / 30';
             document.getElementById('result-modal').classList.remove('hidden');
             document.getElementById('result-modal').classList.add('flex');
-            
             playSound('fanfare');
             startConfetti();
         }
@@ -749,7 +667,6 @@
             renderAll();
         }
 
-        // Simple Confetti Cannon
         function startConfetti() {
             const canvas = document.getElementById('confetti-canvas');
             const ctx = canvas.getContext('2d');
@@ -783,7 +700,6 @@
             animate();
         }
 
-        // Initialize on Load
         renderAll();
     </script>
 </body>
