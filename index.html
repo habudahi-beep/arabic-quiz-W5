@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بطاقات التعلم الذاتي - الصف الثاني (7) | المعلمة هنية سحويل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>بطاقات التعلم الذاتي - الصف الثاني (7) | المعلمة هنية أبوضاحي</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Tajawal -->
@@ -12,17 +12,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            touch-action: manipulation; /* Prevents double-tap zoom delays on mobile */
+        }
         body {
             font-family: 'Tajawal', sans-serif;
             background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 50%, #fce7f3 100%);
             min-height: 100vh;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Child-friendly Animations */
+        /* Animations */
         @keyframes bounce-gentle {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
         .animate-bounce-gentle {
             animation: bounce-gentle 2.5s infinite ease-in-out;
@@ -51,228 +55,173 @@
             z-index: 999;
         }
 
-        /* Custom scrollbars */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 4px;
+        /* Touch friendly buttons */
+        button, div[role="button"] {
+            min-height: 44px;
         }
     </style>
 </head>
-<body class="p-2 md:p-6 text-slate-800 relative">
+<body class="p-2 sm:p-4 md:p-6 text-slate-800 relative max-w-4xl mx-auto">
 
     <canvas id="confetti-canvas"></canvas>
 
     <!-- Header Banner -->
-    <header class="max-w-4xl mx-auto mb-6 bg-white rounded-3xl p-4 md:p-6 card-shadow border-4 border-yellow-300 relative overflow-hidden">
-        <div class="absolute -right-8 -top-8 w-24 h-24 bg-yellow-200 rounded-full opacity-50 blur-xl"></div>
-        <div class="absolute -left-8 -bottom-8 w-24 h-24 bg-sky-200 rounded-full opacity-50 blur-xl"></div>
-
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10 text-center md:text-right">
+    <header class="mb-5 bg-white rounded-3xl p-4 md:p-6 card-shadow border-4 border-yellow-300 relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right">
             <div class="flex items-center gap-3">
                 <span class="text-4xl md:text-5xl animate-bounce-gentle">🌍</span>
                 <div>
-                    <span class="bg-amber-100 text-amber-800 text-xs md:text-sm font-bold px-3 py-1 rounded-full border border-amber-300">
+                    <span class="bg-amber-100 text-amber-800 text-xs md:text-sm font-bold px-3 py-1 rounded-full border border-amber-300 inline-block">
                         بطاقات التعلم الذاتي - الوحدة الثانية: الأرض
                     </span>
                     <h1 class="text-2xl md:text-3xl font-black text-sky-700 mt-1">
                         اللغة العربية - الصف الثاني (7)
                     </h1>
-                    <p class="text-sm md:text-base font-bold text-pink-600 mt-0.5 flex items-center justify-center md:justify-start gap-1">
+                    <p class="text-sm md:text-base font-bold text-pink-600 mt-0.5 flex items-center justify-center sm:justify-start gap-1">
                         <span>👩‍🏫 إعداد وإشراف المعلمة:</span>
-                        <span class="underline decoration-pink-300">هنية سحويل</span>
+                        <span class="underline decoration-pink-300">هنية أبوضاحي</span>
                     </p>
                 </div>
             </div>
 
             <!-- Score & Progress -->
-            <div class="bg-sky-50 p-3 rounded-2xl border-2 border-sky-200 flex flex-col items-center min-w-[150px]">
+            <div class="bg-sky-50 p-3 rounded-2xl border-2 border-sky-200 flex flex-row sm:flex-col items-center justify-between w-full sm:w-auto min-w-[140px] px-4">
                 <div class="flex items-center gap-1 text-amber-500 font-bold text-lg">
                     <span class="animate-star">⭐</span>
                     <span id="score-display">0</span>
                     <span class="text-slate-400 text-sm">/ 30</span>
                 </div>
-                <div class="w-full bg-slate-200 rounded-full h-3 mt-1.5 overflow-hidden">
+                <div class="w-28 sm:w-full bg-slate-200 rounded-full h-3 overflow-hidden my-1">
                     <div id="progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
-                <span class="text-xs text-sky-800 mt-1 font-semibold" id="progress-text">واصل البطل! 🎉</span>
+                <span class="text-xs text-sky-800 font-semibold" id="progress-text">واصل البطل! 🎉</span>
             </div>
         </div>
     </header>
 
     <!-- Main Content Container -->
-    <main class="max-w-4xl mx-auto space-y-6">
+    <main class="space-y-6">
 
         <!-- ==================== TADREEB 1: BALLOONS (د vs ذ) ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-red-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-red-600 flex items-center gap-2">
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-red-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-red-600 flex items-center gap-2">
                     <span>🎈</span> التدريب (1): بالونات د وَ ذ
                 </h2>
-                <span class="text-xs bg-red-100 text-red-700 font-bold px-2.5 py-1 rounded-full">اختر اللون ثم أشر على البالون</span>
+                <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-1 rounded-full">اختر اللون تحت كل بالون</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَقْرَأُ، وَنُلَوِّنُ الْبَالُونَ الَّذِي فِيهِ حَرْفُ <span class="text-red-600 font-black text-xl">(د)</span> بِاللَّوْنِ الْأَحْمَرِ، وَالْبَالُونَ الَّذِي فِيهِ حَرْفُ <span class="text-blue-600 font-black text-xl">(ذ)</span> بِاللَّوْنِ الْأَزْرَقِ:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                نَقْرَأُ، وَنُلَوِّنُ الْبَالُونَ الَّذِي فِيهِ حَرْفُ <span class="text-red-600 font-black text-lg">(د)</span> بِالأَحْمَرِ، وَالَّذِي فِيهِ حَرْفُ <span class="text-blue-600 font-black text-lg">(ذ)</span> بِالأَزْرَقِ:
             </p>
 
-            <!-- Color Palette Selector -->
-            <div class="flex justify-center gap-4 mb-6">
-                <button onclick="selectColor('red')" id="btn-color-red" class="color-btn active ring-4 ring-offset-2 ring-red-500 bg-red-500 text-white font-bold px-4 py-2 rounded-2xl flex items-center gap-2 transition hover:scale-105">
-                    <span class="w-4 h-4 bg-red-200 rounded-full"></span>
-                    طلاء أحمر لحرف (د)
-                </button>
-                <button onclick="selectColor('blue')" id="btn-color-blue" class="color-btn bg-blue-500 text-white font-bold px-4 py-2 rounded-2xl flex items-center gap-2 transition hover:scale-105">
-                    <span class="w-4 h-4 bg-blue-200 rounded-full"></span>
-                    طلاء أزرق لحرف (ذ)
-                </button>
-            </div>
-
-            <!-- Balloon Cards Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="balloons-container">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4" id="balloons-container">
                 <!-- Javascript will inject balloon cards -->
             </div>
-            <div id="t1-feedback" class="mt-3 text-center font-bold text-sm h-6"></div>
         </section>
 
 
         <!-- ==================== TADREEB 2: TAJREED RAA' (ر) ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-amber-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-amber-600 flex items-center gap-2">
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-amber-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-amber-600 flex items-center gap-2">
                     <span>🔍</span> التدريب (2): تَجْرِيدُ حَرْفِ (ر)
                 </h2>
-                <span class="text-xs bg-amber-100 text-amber-700 font-bold px-2.5 py-1 rounded-full">اضغط على حرف (ر) داخل الكلمة</span>
+                <span class="text-xs bg-amber-100 text-amber-700 font-bold px-2 py-1 rounded-full">إصبعك على حرف ر</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَقْرَأُ، وَنُجَرِّدُ حَرْفَ <span class="text-amber-600 font-black text-xl">(ر)</span> بِالضَّغْطِ عَلَيْهِ فِي الكَلِمَاتِ الْآتِيَةِ:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                نَقْرَأُ، وَنُجَرِّدُ حَرْفَ <span class="text-amber-600 font-black text-lg">(ر)</span> بِالضَّغْطِ عَلَيْهِ فِي الكَلِمَاتِ:
             </p>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3" id="tajreed-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="tajreed-container">
                 <!-- Javascript populates words -->
             </div>
         </section>
 
 
         <!-- ==================== TADREEB 3: ZAY (ز) CIRCLE ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-emerald-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-emerald-600 flex items-center gap-2">
-                    <span>⭕</span> التدريب (3): دَائِرَةٌ حَوْلَ الكَلِمَةِ الَّتِي تَحْتَوِي عَلَى (ز)
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-emerald-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-emerald-600 flex items-center gap-2">
+                    <span>⭕</span> التدريب (3): دَائِرَةٌ حَوْلَ الكَلِمَةِ الَّتِي تَحْتَوِي (ز)
                 </h2>
-                <span class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2.5 py-1 rounded-full">اختر الكلمات الصحيحة فقط</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَقْرَأُ، وَنَضَعُ دَائِرَةً حَوْلَ الكَلِمَةِ الَّتِي تَحْتَوِي عَلَى حَرْفِ <span class="text-emerald-600 font-black text-xl">(ز)</span>:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                اضغط على الكلمات التي تحتوي على حرف <span class="text-emerald-600 font-black text-lg">(ز)</span> لِتَضَعَ حَوْلَهَا دَائِرَةً:
             </p>
 
-            <div class="flex flex-wrap justify-center gap-3 md:gap-4" id="zay-container">
+            <div class="flex flex-wrap justify-center gap-3" id="zay-container">
                 <!-- Words injected via JS -->
             </div>
         </section>
 
 
         <!-- ==================== TADREEB 4: CLASSIFY SIN & SHIN (س / ش) ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-indigo-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-indigo-600 flex items-center gap-2">
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-indigo-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-indigo-600 flex items-center gap-2">
                     <span>🧺</span> التدريب (4): تَصْنِيفُ الكَلِمَاتِ (س / ش)
                 </h2>
-                <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2.5 py-1 rounded-full">اختر السلة المناسبة للكلمة</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَقْرَأُ ، وَنُصَنِّفُ الْكَلِمَاتِ فِي السَّلَّةِ الْمُنَاسِبَةِ:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                اختر الحرف الصحيح لكل كلمة:
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Bucket S -->
-                <div class="bg-sky-50 border-2 border-dashed border-sky-400 rounded-2xl p-4 text-center">
-                    <div class="text-xl font-black text-sky-700 mb-3 bg-sky-200 py-1.5 px-4 rounded-xl inline-block">
-                        حَرْفُ (س) 🟢
-                    </div>
-                    <div id="bucket-sin" class="min-h-[100px] flex flex-wrap justify-center gap-2 items-center">
-                        <!-- Placed items -->
-                    </div>
-                </div>
-
-                <!-- Bucket Sh -->
-                <div class="bg-purple-50 border-2 border-dashed border-purple-400 rounded-2xl p-4 text-center">
-                    <div class="text-xl font-black text-purple-700 mb-3 bg-purple-200 py-1.5 px-4 rounded-xl inline-block">
-                        حَرْفُ (ش) 🟣
-                    </div>
-                    <div id="bucket-shin" class="min-h-[100px] flex flex-wrap justify-center gap-2 items-center">
-                        <!-- Placed items -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unclassified Words Bank -->
-            <div class="mt-6 pt-4 border-t border-slate-100">
-                <p class="text-sm font-bold text-slate-500 mb-3">اضغط على الكلمة ثم اختر أين تضعها:</p>
-                <div id="sin-shin-words" class="flex flex-wrap justify-center gap-3">
-                    <!-- Word chips injected JS -->
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="sin-shin-container">
+                <!-- Words injected via JS -->
             </div>
         </section>
 
 
         <!-- ==================== TADREEB 5: COMPLETE SAD (ص / ـص) ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-pink-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-pink-600 flex items-center gap-2">
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-pink-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-pink-600 flex items-center gap-2">
                     <span>✏️</span> التدريب (5): كِتَابَةُ حَرْفِ (ص ، ـص)
                 </h2>
-                <span class="text-xs bg-pink-100 text-pink-700 font-bold px-2.5 py-1 rounded-full">اختر الشكل الصحيح للحرف</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَكْتُبُ حَرْفَ <span class="text-pink-600 font-black text-xl">(ص ، ـص)</span> فِي الْمَكَانِ الْمُنَاسِبِ لِتَكْتَمِلَ الْكَلِمَةُ:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                اختر الشكل المناسب لحرف <span class="text-pink-600 font-black text-lg">(ص)</span> لتكتمل الكلمة:
             </p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="sad-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="sad-container">
                 <!-- Injected JS -->
             </div>
         </section>
 
 
         <!-- ==================== TADREEB 6: DAD (ض) RECTANGLES ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-teal-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-teal-600 flex items-center gap-2">
-                    <span>🟩</span> التدريب (6): المَسْتَطِيلُ الَّذِي يَحْتَوِي عَلَى (ض)
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-teal-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-teal-600 flex items-center gap-2">
+                    <span>🟩</span> التدريب (6): مستطيل كلمة فيها (ض)
                 </h2>
-                <span class="text-xs bg-teal-100 text-teal-700 font-bold px-2.5 py-1 rounded-full">اضغط لتلوين المستطيل الصحيح</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَقْرَأُ، وَنُلَوِّنُ الْمُسْتَطِيلَ الَّذِي يَحْتَوِي عَلَى كَلِمَةٍ فِيهَا حَرْفُ <span class="text-teal-600 font-black text-xl">(ض ، ـض)</span>:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                اضغط على المستطيلات التي تحتوي كلمة بها حرف <span class="text-teal-600 font-black text-lg">(ض)</span>:
             </p>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="dad-container">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="dad-container">
                 <!-- Injected JS -->
             </div>
         </section>
 
 
         <!-- ==================== TADREEB 7: TAHLIL (تحليل الكلمات) ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-orange-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-orange-600 flex items-center gap-2">
-                    <span>✂️</span> التدريب (7): تَحْلِيلُ الْكَلِمَاتِ إِلَى مَقَاطِعَ وَحُرُوفٍ
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-orange-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-orange-600 flex items-center gap-2">
+                    <span>✂️</span> التدريب (7): تَحْلِيلُ الْكَلِمَاتِ
                 </h2>
-                <span class="text-xs bg-orange-100 text-orange-700 font-bold px-2.5 py-1 rounded-full">رتب الحروف والمقاطع المفككة</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نَقْرَأُ، وَنُحَلِّلُ الْكَلِمَاتِ الآتِيَةَ إِلَى مَقَاطِعِهَا وَحُرُوفِهَا:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                اختر التحليل الحرفي الصحيح للكلمة:
             </p>
 
             <div class="space-y-4" id="tahlil-container">
@@ -282,16 +231,15 @@
 
 
         <!-- ==================== TADREEB 8: TARKEEB (تركيب الكلمات) ==================== -->
-        <section class="bg-white rounded-3xl p-5 md:p-6 card-shadow border-2 border-purple-200">
-            <div class="flex items-center justify-between border-b pb-3 mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-purple-600 flex items-center gap-2">
-                    <span>🧩</span> التدريب (8): تَرْكِيبُ المَقَاطِعِ لِتَكْوِينِ كَلِمَةٍ
+        <section class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border-2 border-purple-200">
+            <div class="border-b pb-3 mb-4 flex justify-between items-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-purple-600 flex items-center gap-2">
+                    <span>🧩</span> التدريب (8): تَرْكِيبُ المَقَاطِعِ
                 </h2>
-                <span class="text-xs bg-purple-100 text-purple-700 font-bold px-2.5 py-1 rounded-full">اختر الكلمة المركبة الصحيحة</span>
             </div>
 
-            <p class="text-slate-700 mb-4 font-semibold text-base md:text-lg">
-                نُرَكِّبُ الْمَقَاطِعَ الآتِيَةَ، وَنَقْرَأُ الْكَلِمَةَ النَّاتِجَةَ:
+            <p class="text-slate-700 mb-4 font-semibold text-sm sm:text-base leading-relaxed">
+                اختر الكلمة المركبة الصحيحة من المقاطع:
             </p>
 
             <div class="space-y-4" id="tarkeeb-container">
@@ -301,11 +249,11 @@
 
 
         <!-- Action Footer -->
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 py-6">
-            <button onclick="checkFinalResult()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xl px-8 py-4 rounded-2xl shadow-lg transition transform hover:scale-105 flex items-center justify-center gap-2">
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-3 py-4">
+            <button onclick="checkFinalResult()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-lg sm:text-xl px-8 py-4 rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
                 <span>🏆</span> إنهاء والتحقق من النتيجة الكلية
             </button>
-            <button onclick="resetAll()" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-lg px-6 py-4 rounded-2xl transition flex items-center justify-center gap-2">
+            <button onclick="resetAll()" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 active:scale-95 text-slate-700 font-bold text-base sm:text-lg px-6 py-4 rounded-2xl transition flex items-center justify-center gap-2">
                 <span>🔄</span> إعادة المحاولة
             </button>
         </div>
@@ -313,8 +261,8 @@
     </main>
 
     <!-- Footer Credit -->
-    <footer class="text-center text-slate-500 font-semibold py-6 text-sm">
-        الصف الثاني (7) - إشراف المعلمة: <span class="text-sky-700 font-bold">هنية سحويل</span> 🌟
+    <footer class="text-center text-slate-500 font-semibold py-6 text-xs sm:text-sm">
+        الصف الثاني (7) - إشراف المعلمة القديرة: <span class="text-sky-700 font-bold">هنية أبوضاحي</span> 🌟
     </footer>
 
 
@@ -323,16 +271,16 @@
         <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full text-center card-shadow border-4 border-yellow-400 relative animate-bounce-gentle">
             <div class="text-6xl mb-3">🌟🎉</div>
             <h3 class="text-2xl md:text-3xl font-black text-sky-800 mb-2">أَحْسَنْتَ يَا بَطَلُ!</h3>
-            <p class="text-slate-600 font-semibold mb-4 text-lg" id="modal-message">لقد أتممت بطاقات اللغة العربية بنجاح ممتازة!</p>
+            <p class="text-slate-600 font-semibold mb-4 text-base sm:text-lg" id="modal-message">لقد أتممت بطاقات اللغة العربية بنجاح ممتازة!</p>
 
-            <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 mb-6">
-                <span class="block text-slate-500 text-sm font-bold">مجموع النجوم المحققة</span>
+            <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 mb-5">
+                <span class="block text-slate-500 text-xs sm:text-sm font-bold">مجموع النجوم المحققة</span>
                 <span class="text-4xl font-black text-amber-500" id="modal-score">0 / 30</span>
             </div>
 
-            <p class="text-pink-600 font-bold text-sm mb-6">تحت إشراف المعلمة المتميزة: هنية سحويل 👏</p>
+            <p class="text-pink-600 font-bold text-sm mb-6">تحت إشراف المعلمة المتميزة: هنية أبوضاحي 👏</p>
 
-            <button onclick="closeModal()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-lg px-8 py-3 rounded-2xl w-full shadow-md transition">
+            <button onclick="closeModal()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-lg px-8 py-3.5 rounded-2xl w-full shadow-md transition">
                 متابعة 🚀
             </button>
         </div>
@@ -341,7 +289,7 @@
 
     <!-- ==================== JAVASCRIPT LOGIC ==================== -->
     <script>
-        // Audio Context initialization for sound effects without external assets
+        // Sound effects via Web Audio API
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -358,14 +306,13 @@
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-
             const now = audioCtx.currentTime;
 
             if (type === 'success') {
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, now); // C5
-                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
-                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1);
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2);
                 gain.gain.setValueAtTime(0.3, now);
                 gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
                 osc.start(now);
@@ -386,7 +333,6 @@
                     o.stop(startTime + 0.3);
                 });
             } else {
-                // Wrong sound
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(220, now);
                 osc.frequency.exponentialRampToValueAtTime(140, now + 0.2);
@@ -399,7 +345,6 @@
 
         // Global State
         let state = {
-            t1Color: 'red',
             t1Balloons: {},
             t2Tajreed: {},
             t3Zay: {},
@@ -416,7 +361,7 @@
             { id: 'b2', word: 'أَخَذَ', correct: 'blue', letter: 'ذ' },
             { id: 'b3', word: 'الْجَدِيدُ', correct: 'red', letter: 'د' },
             { id: 'b4', word: 'دَارَ', correct: 'red', letter: 'د' },
-            { id: 'b5', word: 'شَدَّة', correct: 'red', letter: 'د' },
+            { id: 'b5', word: 'شَدَّة', correct: 'red', letter: 'د' },
             { id: 'b6', word: 'لَذِيذ', correct: 'blue', letter: 'ذ' }
         ];
 
@@ -453,22 +398,23 @@
         const dadData = [
             { id: 'dd1', word: 'أَرْض', hasDad: true },
             { id: 'dd2', word: 'ضَفْدَع', hasDad: true },
-            { id: 'dd3', word: 'الصَّغِير', hasDad: false },
+            { id: 'dd3', word: 'الصَّغِير', hasDad: false },
             { id: 'dd4', word: 'ضَبَاب', hasDad: true }
         ];
 
         const tahlilData = [
-            { id: 'th1', word: 'شَمْس', parts: ['شَـ', 'مْـ', 'سٌ'] },
-            { id: 'th2', word: 'يَحْصُدُ', parts: ['يَـ', 'حْـ', 'صُـ', 'دُ'] },
-            { id: 'th3', word: 'الْأَرْض', parts: ['ا', 'ل', 'أَ', 'رْ', 'ض'] }
+            { id: 'th1', word: 'شَمْس', options: ['شَـ | مْـ | سٌ', 'شمـ | س', 'ش | مس'], correct: 'شَـ | مْـ | سٌ' },
+            { id: 'th2', word: 'يَحْصُدُ', options: ['يَـ | حْـ | صُـ | دُ', 'يحـ | صـ | د', 'ي | حص | د'], correct: 'يَـ | حْـ | صُـ | دُ' },
+            { id: 'th3', word: 'الْأَرْض', options: ['ا | ل | أَ | رْ | ض', 'الـ | أرض', 'الـ | أضر'], correct: 'ا | ل | أَ | رْ | ض' }
         ];
 
         const tarkeebData = [
-            { id: 'tk1', parts: ['شَـ', 'مْـ', 'سٌ'], options: ['شَمْس', 'سَمَش', 'مَشْس'], correct: 'شَمْس' },
-            { id: 'tk2', parts: ['يَـ', 'حْـ', 'صُـ', 'دُ'], options: ['يَحْصُدُ', 'حَصَدَيُ', 'يَصْحُدُ'], correct: 'يَحْصُدُ' },
-            { id: 'tk3', parts: ['الْـ', 'أَ', 'رْ', 'ض'], options: ['الْأَرْض', 'أَرْضَال', 'الرَّأْض'], correct: 'الْأَرْض' }
+            { id: 'tk1', parts: 'شَـ + مْـ + سٌ', options: ['شَمْس', 'سَمَش', 'مَشْس'], correct: 'شَمْس' },
+            { id: 'tk2', parts: 'يَـ + حْـ + صُـ + دُ', options: ['يَحْصُدُ', 'حَصَدَيُ', 'يَصْحُدُ'], correct: 'يَحْصُdُ' },
+            { id: 'tk3', parts: 'الْـ + أَ + رْ + ض', options: ['الْأَرْض', 'أَرْضَال', 'الرَّأْض'], correct: 'الْأَرْض' }
         ];
-
+        // Correct fix for typo in array element
+        tarkeebData[1].correct = 'يَحْصُدُ';
 
         // RENDER FUNCTIONS
         function renderAll() {
@@ -483,73 +429,59 @@
             updateScoreBar();
         }
 
-        // T1: Balloons
-        function selectColor(color) {
-            state.t1Color = color;
-            document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('ring-4', 'ring-offset-2'));
-            if (color === 'red') {
-                document.getElementById('btn-color-red').classList.add('ring-4', 'ring-offset-2', 'ring-red-500');
-            } else {
-                document.getElementById('btn-color-blue').classList.add('ring-4', 'ring-offset-2', 'ring-blue-500');
-            }
-        }
-
+        // T1: Balloons (Mobile friendly direct choice)
         function renderBalloons() {
             const container = document.getElementById('balloons-container');
             container.innerHTML = balloonsData.map(b => {
-                const userColor = state.t1Balloons[b.id];
-                let bgClass = 'bg-slate-100 text-slate-700 border-slate-300';
-                if (userColor === 'red') bgClass = 'bg-red-500 text-white border-red-600 shadow-md scale-105';
-                if (userColor === 'blue') bgClass = 'bg-blue-500 text-white border-blue-600 shadow-md scale-105';
-
-                const isCorrect = userColor === b.correct;
+                const userChoice = state.t1Balloons[b.id];
+                let bgClass = 'bg-slate-50 border-slate-200';
+                if (userChoice === 'red') bgClass = 'bg-red-50 border-red-400';
+                if (userChoice === 'blue') bgClass = 'bg-blue-50 border-blue-400';
 
                 return `
-                    <div onclick="clickBalloon('${b.id}')" 
-                        class="cursor-pointer border-4 rounded-3xl p-4 text-center transition-all duration-300 transform hover:-translate-y-1 relative ${bgClass}">
+                    <div class="border-2 rounded-2xl p-3 text-center ${bgClass} transition">
                         <div class="text-3xl mb-1">🎈</div>
-                        <div class="text-xl font-black">${b.word}</div>
-                        ${userColor ? `
-                            <span class="absolute top-2 left-2 text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center ${isCorrect ? 'bg-emerald-400 text-white' : 'bg-amber-400 text-slate-800'}">
-                                ${isCorrect ? '✓' : '✗'}
-                            </span>
-                        ` : ''}
+                        <div class="text-lg font-black text-slate-800 mb-2">${b.word}</div>
+                        <div class="flex gap-1 justify-center">
+                            <button onclick="clickBalloon('${b.id}', 'red')" class="flex-1 py-2 text-xs font-bold rounded-xl ${userChoice === 'red' ? (b.correct === 'red' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-red-100 text-red-700 hover:bg-red-200'}">
+                                🔴 أحمر (د)
+                            </button>
+                            <button onclick="clickBalloon('${b.id}', 'blue')" class="flex-1 py-2 text-xs font-bold rounded-xl ${userChoice === 'blue' ? (b.correct === 'blue' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}">
+                                🔵 أزرق (ذ)
+                            </button>
+                        </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function clickBalloon(id) {
-            const balloon = balloonsData.find(b => b.id === id);
-            state.t1Balloons[id] = state.t1Color;
-            
-            if (state.t1Color === balloon.correct) {
-                playSound('success');
-            } else {
-                playSound('error');
-            }
+        function clickBalloon(id, color) {
+            const item = balloonsData.find(b => b.id === id);
+            state.t1Balloons[id] = color;
+            if (color === item.correct) playSound('success');
+            else playSound('error');
             renderBalloons();
             updateScoreBar();
         }
 
-        // T2: Tajreed Raa
+        // T2: Tajreed Raa (Finger friendly tap)
         function renderTajreed() {
             const container = document.getElementById('tajreed-container');
             container.innerHTML = tajreedData.map(item => {
                 const selectedIdx = state.t2Tajreed[item.id];
                 return `
                     <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-3 text-center">
-                        <div class="flex justify-center items-center gap-1 dir-rtl text-2xl font-black mb-2 bg-white rounded-xl py-2 shadow-sm">
+                        <div class="flex justify-center items-center gap-1.5 text-2xl font-black mb-2 bg-white rounded-xl py-2 shadow-sm dir-rtl">
                             ${item.letters.map((char, idx) => {
-                                let style = "hover:bg-amber-100 rounded px-1 cursor-pointer transition";
+                                let style = "px-2 py-1 rounded cursor-pointer transition hover:bg-amber-100";
                                 if (selectedIdx === idx) {
-                                    if (idx === item.raaIdx) style = "bg-emerald-500 text-white rounded px-1.5 animate-pulse";
-                                    else style = "bg-red-400 text-white rounded px-1";
+                                    if (idx === item.raaIdx) style = "px-2.5 py-1 bg-emerald-500 text-white rounded font-bold";
+                                    else style = "px-2 py-1 bg-red-400 text-white rounded";
                                 }
                                 return `<span onclick="clickTajreed('${item.id}', ${idx})" class="${style}">${char}</span>`;
                             }).join('')}
                         </div>
-                        <span class="text-xs font-bold text-amber-700">
+                        <span class="text-xs font-bold text-amber-800">
                             ${selectedIdx !== undefined ? (selectedIdx === item.raaIdx ? 'ممتاز! (ر) 🎉' : 'حاول ثانية ❌') : 'اضغط على حرف (ر)'}
                         </span>
                     </div>
@@ -571,17 +503,15 @@
             const container = document.getElementById('zay-container');
             container.innerHTML = zayData.map(item => {
                 const isSelected = state.t3Zay[item.id];
-                let bgStyle = "bg-slate-50 border-2 border-slate-200 text-slate-800 hover:border-emerald-300";
+                let bgStyle = "bg-slate-50 border-2 border-slate-200 text-slate-800";
                 if (isSelected) {
-                    if (item.hasZay) bgStyle = "bg-emerald-100 border-4 border-emerald-500 text-emerald-900 shadow-md font-black scale-105";
-                    else bgStyle = "bg-red-100 border-4 border-red-400 text-red-800";
+                    if (item.hasZay) bgStyle = "bg-emerald-100 border-3 border-emerald-500 text-emerald-900 font-black shadow";
+                    else bgStyle = "bg-red-100 border-3 border-red-400 text-red-800";
                 }
 
                 return `
-                    <button onclick="clickZay('${item.id}')" 
-                        class="px-6 py-3 rounded-2xl text-xl font-bold transition transform ${bgStyle}">
-                        ${item.word}
-                        ${isSelected && item.hasZay ? ' ⭕' : ''}
+                    <button onclick="clickZay('${item.id}')" class="px-5 py-3 rounded-2xl text-lg font-bold transition ${bgStyle}">
+                        ${item.word} ${isSelected && item.hasZay ? '⭕' : ''}
                     </button>
                 `;
             }).join('');
@@ -598,87 +528,49 @@
             updateScoreBar();
         }
 
-        // T4: Sin vs Shin Classify
-        let activeSinShinSelected = null;
-
+        // T4: Sin vs Shin
         function renderSinShin() {
-            // Render unassigned bank
-            const bankContainer = document.getElementById('sin-shin-words');
-            bankContainer.innerHTML = sinShinData.map(item => {
-                const assigned = state.t4SinShin[item.id];
-                if (assigned) return ''; // Hide if assigned
-                const isSelected = activeSinShinSelected === item.id;
+            const container = document.getElementById('sin-shin-container');
+            container.innerHTML = sinShinData.map(item => {
+                const choice = state.t4SinShin[item.id];
                 return `
-                    <button onclick="selectSinShinWord('${item.id}')" 
-                        class="px-4 py-2 text-lg font-bold rounded-2xl border-2 transition transform hover:scale-105 ${isSelected ? 'bg-amber-300 border-amber-500 ring-4 ring-amber-200' : 'bg-white border-slate-200 text-slate-800 shadow-sm'}">
-                        ${item.word}
-                    </button>
+                    <div class="bg-indigo-50 border-2 border-indigo-100 rounded-2xl p-3 flex items-center justify-between">
+                        <span class="text-xl font-black text-indigo-900 mr-2">${item.word}</span>
+                        <div class="flex gap-2">
+                            <button onclick="clickSinShin('${item.id}', 'sin')" class="px-4 py-2 font-bold rounded-xl text-sm ${choice === 'sin' ? (item.correct === 'sin' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-white border border-indigo-200 text-indigo-700'}">
+                                حرف (س)
+                            </button>
+                            <button onclick="clickSinShin('${item.id}', 'shin')" class="px-4 py-2 font-bold rounded-xl text-sm ${choice === 'shin' ? (item.correct === 'shin' ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-white border border-indigo-200 text-purple-700'}">
+                                حرف (ش)
+                            </button>
+                        </div>
+                    </div>
                 `;
             }).join('');
-
-            // Render Buckets
-            ['sin', 'shin'].forEach(type => {
-                const bucketEl = document.getElementById(`bucket-${type}`);
-                const itemsInBucket = sinShinData.filter(i => state.t4SinShin[i.id] === type);
-
-                bucketEl.innerHTML = itemsInBucket.map(item => {
-                    const isCorrect = item.correct === type;
-                    return `
-                        <div class="px-3 py-1.5 rounded-xl font-bold text-base flex items-center gap-1 shadow-sm ${isCorrect ? 'bg-emerald-500 text-white' : 'bg-red-400 text-white'}">
-                            <span>${item.word}</span>
-                            <button onclick="unassignSinShin('${item.id}')" class="text-xs bg-black/20 hover:bg-black/40 rounded-full w-4 h-4 flex items-center justify-center">✕</button>
-                        </div>
-                    `;
-                }).join('') + `
-                    <button onclick="placeInBucket('${type}')" class="w-full py-2 border-2 border-dashed border-slate-300 rounded-xl text-xs text-slate-500 hover:bg-white/50 transition mt-2">
-                        + إيداع الكلمة المحددة هنا
-                    </button>
-                `;
-            });
         }
 
-        function selectSinShinWord(id) {
-            activeSinShinSelected = id;
-            renderSinShin();
-        }
-
-        function placeInBucket(type) {
-            if (!activeSinShinSelected) return;
-            const item = sinShinData.find(i => i.id === activeSinShinSelected);
-            state.t4SinShin[activeSinShinSelected] = type;
-            if (item.correct === type) playSound('success');
+        function clickSinShin(id, type) {
+            const item = sinShinData.find(i => i.id === id);
+            state.t4SinShin[id] = type;
+            if (type === item.correct) playSound('success');
             else playSound('error');
-            activeSinShinSelected = null;
             renderSinShin();
             updateScoreBar();
         }
 
-        function unassignSinShin(id) {
-            delete state.t4SinShin[id];
-            renderSinShin();
-            updateScoreBar();
-        }
-
-        // T5: Sad completion
+        // T5: Sad Complete
         function renderSad() {
             const container = document.getElementById('sad-container');
-            container.innerHTML = sadData.map((item, idx) => {
-                const userChoice = state.t5Sad[item.sd1 || idx];
-                const isCorrect = userChoice === item.correct;
-
+            container.innerHTML = sadData.map(item => {
+                const userChoice = state.t5Sad[item.id];
                 return `
-                    <div class="bg-pink-50 border-2 border-pink-200 rounded-2xl p-4 text-center">
-                        <div class="text-2xl font-black text-slate-800 mb-3 flex items-center justify-center gap-1 dir-rtl">
-                            <span>${item.prefix}</span>
-                            <span class="inline-block min-w-[40px] px-2 py-0.5 border-b-4 border-pink-500 text-pink-600 bg-white rounded">
-                                ${userChoice || '___'}
-                            </span>
-                            <span>${item.suffix}</span>
-                        </div>
-                        <div class="flex justify-center gap-2">
+                    <div class="bg-pink-50 border-2 border-pink-100 rounded-2xl p-3 flex items-center justify-between">
+                        <span class="text-xl font-black text-pink-900">
+                            ${item.prefix}<span class="underline text-pink-600">${userChoice || '___'}</span>${item.suffix}
+                        </span>
+                        <div class="flex gap-2">
                             ${item.options.map(opt => `
-                                <button onclick="clickSad(${idx}, '${opt}')" 
-                                    class="px-4 py-1.5 font-bold rounded-xl text-lg transition border ${userChoice === opt ? (isCorrect ? 'bg-emerald-500 text-white border-emerald-600' : 'bg-red-400 text-white border-red-500') : 'bg-white text-slate-700 border-slate-200 hover:bg-pink-100'}">
+                                <button onclick="clickSad('${item.id}', '${opt}')" class="px-4 py-2 font-black rounded-xl text-lg ${userChoice === opt ? (opt === item.correct ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-pink-700 border border-pink-200'}">
                                     ${opt}
                                 </button>
                             `).join('')}
@@ -688,31 +580,30 @@
             }).join('');
         }
 
-        function clickSad(idx, opt) {
-            const item = sadData[idx];
-            state.t5Sad[idx] = opt;
+        function clickSad(id, opt) {
+            const item = sadData.find(s => s.id === id);
+            state.t5Sad[id] = opt;
             if (opt === item.correct) playSound('success');
             else playSound('error');
             renderSad();
             updateScoreBar();
         }
 
-        // T6: Dad Rectangles
+        // T6: Dad Rectangle
         function renderDad() {
             const container = document.getElementById('dad-container');
             container.innerHTML = dadData.map(item => {
                 const isSelected = state.t6Dad[item.id];
-                let bgStyle = "bg-teal-50 border-2 border-teal-200 text-teal-900 hover:border-teal-400";
+                let bgStyle = "bg-teal-50 border-2 border-teal-200 text-teal-900";
                 if (isSelected) {
-                    if (item.hasDad) bgStyle = "bg-teal-500 text-white border-teal-600 shadow-md font-black scale-105";
+                    if (item.hasDad) bgStyle = "bg-emerald-500 text-white border-emerald-600 font-black shadow";
                     else bgStyle = "bg-red-400 text-white border-red-500";
                 }
 
                 return `
-                    <div onclick="clickDad('${item.id}')" 
-                        class="cursor-pointer p-4 rounded-2xl text-center text-xl font-bold transition transform ${bgStyle}">
+                    <button onclick="clickDad('${item.id}')" class="p-3 rounded-2xl text-lg font-bold text-center transition ${bgStyle}">
                         ${item.word}
-                    </div>
+                    </button>
                 `;
             }).join('');
         }
@@ -732,37 +623,28 @@
         function renderTahlil() {
             const container = document.getElementById('tahlil-container');
             container.innerHTML = tahlilData.map(item => {
-                const userParts = state.t7Tahlil[item.id] || [];
-
+                const userChoice = state.t7Tahlil[item.id];
                 return `
-                    <div class="bg-orange-50 border-2 border-orange-200 rounded-2xl p-4">
-                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3">
-                            <span class="text-2xl font-black text-orange-800 bg-white px-4 py-1.5 rounded-xl border border-orange-200 shadow-sm">
-                                ${item.word}
-                            </span>
-                            <div class="flex items-center gap-2 dir-rtl">
-                                ${item.parts.map((p, idx) => `
-                                    <input type="text" 
-                                        value="${userParts[idx] || ''}" 
-                                        oninput="inputTahlil('${item.id}', ${idx}, this.value)"
-                                        placeholder="؟"
-                                        class="w-12 h-12 text-center text-xl font-bold border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 ${userParts[idx] === p ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-orange-300 bg-white'}"
-                                    />
-                                `).join('<span class="text-orange-400 font-bold text-xl">+</span>')}
-                            </div>
+                    <div class="bg-orange-50 border-2 border-orange-100 rounded-2xl p-3">
+                        <div class="text-lg font-black text-orange-900 mb-2">تحليل كلمة: (${item.word})</div>
+                        <div class="flex flex-wrap gap-2">
+                            ${item.options.map(opt => `
+                                <button onclick="clickTahlil('${item.id}', '${opt}')" class="px-3 py-2 font-bold rounded-xl text-sm ${userChoice === opt ? (opt === item.correct ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-orange-800 border border-orange-200'}">
+                                    ${opt}
+                                </button>
+                            `).join('')}
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function inputTahlil(id, idx, val) {
-            if (!state.t7Tahlil[id]) state.t7Tahlil[id] = [];
-            state.t7Tahlil[id][idx] = val.trim();
-
+        function clickTahlil(id, opt) {
             const item = tahlilData.find(t => t.id === id);
-            if (val.trim() === item.parts[idx]) playSound('success');
-
+            state.t7Tahlil[id] = opt;
+            if (opt === item.correct) playSound('success');
+            else playSound('error');
+            renderTahlil();
             updateScoreBar();
         }
 
@@ -771,22 +653,15 @@
             const container = document.getElementById('tarkeeb-container');
             container.innerHTML = tarkeebData.map(item => {
                 const userChoice = state.t8Tarkeeb[item.id];
-                const isCorrect = userChoice === item.correct;
-
                 return `
-                    <div class="bg-purple-50 border-2 border-purple-200 rounded-2xl p-4">
-                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div class="flex items-center gap-1 text-2xl font-black text-purple-700 bg-white px-4 py-2 rounded-xl border border-purple-200">
-                                ${item.parts.join(' + ')}
-                            </div>
-                            <div class="flex flex-wrap gap-2 justify-center">
-                                ${item.options.map(opt => `
-                                    <button onclick="clickTarkeeb('${item.id}', '${opt}')" 
-                                        class="px-4 py-2 font-bold text-lg rounded-xl transition border ${userChoice === opt ? (isCorrect ? 'bg-emerald-500 text-white border-emerald-600' : 'bg-red-400 text-white border-red-500') : 'bg-white text-purple-900 border-purple-200 hover:bg-purple-100'}">
-                                        ${opt}
-                                    </button>
-                                `).join('')}
-                            </div>
+                    <div class="bg-purple-50 border-2 border-purple-100 rounded-2xl p-3">
+                        <div class="text-lg font-black text-purple-900 mb-2">ركّب المقاطع: [ ${item.parts} ]</div>
+                        <div class="flex flex-wrap gap-2">
+                            ${item.options.map(opt => `
+                                <button onclick="clickTarkeeb('${item.id}', '${opt}')" class="px-4 py-2 font-bold rounded-xl text-sm ${userChoice === opt ? (opt === item.correct ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-purple-800 border border-purple-200'}">
+                                    ${opt}
+                                </button>
+                            `).join('')}
                         </div>
                     </div>
                 `;
@@ -802,86 +677,57 @@
             updateScoreBar();
         }
 
-
-        // SCORE CALCULATOR
+        // CALCULATE SCORE
         function calculateScore() {
             let score = 0;
 
-            // T1: 6 items
-            balloonsData.forEach(b => {
-                if (state.t1Balloons[b.id] === b.correct) score += 1;
-            });
+            // T1: 6 points
+            balloonsData.forEach(b => { if (state.t1Balloons[b.id] === b.correct) score++; });
 
-            // T2: 5 items
-            tajreedData.forEach(t => {
-                if (state.t2Tajreed[t.id] === t.raaIdx) score += 1;
-            });
+            // T2: 5 points
+            tajreedData.forEach(t => { if (state.t2Tajreed[t.id] === t.raaIdx) score++; });
 
-            // T3: 3 correct zay selections
-            zayData.filter(z => z.hasZay).forEach(z => {
-                if (state.t3Zay[z.id]) score += 1;
-            });
+            // T3: 3 points
+            zayData.filter(z => z.hasZay).forEach(z => { if (state.t3Zay[z.id]) score++; });
 
-            // T4: 4 items
-            sinShinData.forEach(ss => {
-                if (state.t4SinShin[ss.id] === ss.correct) score += 1;
-            });
+            // T4: 4 points
+            sinShinData.forEach(s => { if (state.t4SinShin[s.id] === s.correct) score++; });
 
-            // T5: 4 items
-            sadData.forEach((sd, idx) => {
-                if (state.t5Sad[idx] === sd.correct) score += 1;
-            });
+            // T5: 4 points
+            sadData.forEach(s => { if (state.t5Sad[s.id] === s.correct) score++; });
 
-            // T6: 3 items with dad
-            dadData.filter(d => d.hasDad).forEach(d => {
-                if (state.t6Dad[d.id]) score += 1;
-            });
+            // T6: 3 points
+            dadData.filter(d => d.hasDad).forEach(d => { if (state.t6Dad[d.id]) score++; });
 
-            // T7: 3 items
-            tahlilData.forEach(th => {
-                const userParts = state.t7Tahlil[th.id] || [];
-                if (th.parts.every((p, i) => userParts[i] === p)) score += 1.66;
-            });
+            // T7: 3 points
+            tahlilData.forEach(t => { if (state.t7Tahlil[t.id] === t.correct) score++; });
 
-            // T8: 3 items
-            tarkeebData.forEach(tk => {
-                if (state.t8Tarkeeb[tk.id] === tk.correct) score += 1;
-            });
+            // T8: 2 points (or 3) -> Total 30
+            tarkeebData.forEach(t => { if (state.t8Tarkeeb[t.id] === t.correct) score++; });
 
-            return Math.min(30, Math.round(score));
+            return score;
         }
 
         function updateScoreBar() {
             const score = calculateScore();
             document.getElementById('score-display').innerText = score;
-            const percentage = Math.min(100, Math.round((score / 30) * 100));
-            document.getElementById('progress-bar').style.width = percentage + '%';
-
-            const txt = document.getElementById('progress-text');
-            if (score >= 28) txt.innerText = "ممتاز جداً يا بطل! 🏆";
-            else if (score >= 20) txt.innerText = "أحسنت! واصل التقدم 🌟";
-            else if (score >= 10) txt.innerText = "جهد رائع، استمر! 👍";
-            else txt.innerText = "ابدأ حل البطاقات 🚀";
+            const pct = Math.min(100, Math.round((score / 30) * 100));
+            document.getElementById('progress-bar').style.width = pct + '%';
+            
+            const msg = document.getElementById('progress-text');
+            if (score >= 25) msg.innerText = 'مبدع جداً! 🏆';
+            else if (score >= 15) msg.innerText = 'ممتاز، تابع! ⭐';
+            else msg.innerText = 'واصل البطل! 🎉';
         }
 
-
-        // MODAL & CELEBRATION
         function checkFinalResult() {
             const score = calculateScore();
-            document.getElementById('modal-score').innerText = `${score} / 30`;
-            const msgEl = document.getElementById('modal-message');
-
-            if (score >= 25) {
-                msgEl.innerText = "مبدع ورائع جداً! أداء استثنائي في بطاقات التعلم الذاتي 🎉";
-                playSound('fanfare');
-                triggerConfetti();
-            } else {
-                msgEl.innerText = "أحسنت! يمكنك تحسين درجتك بإكمال باقي البطاقات بتركيز 😃";
-                playSound('success');
-            }
-
+            document.getElementById('modal-score').innerText = score + ' / 30';
             document.getElementById('result-modal').classList.remove('hidden');
             document.getElementById('result-modal').classList.add('flex');
+            
+            playSound('fanfare');
+            startConfetti();
         }
 
         function closeModal() {
@@ -891,7 +737,6 @@
 
         function resetAll() {
             state = {
-                t1Color: 'red',
                 t1Balloons: {},
                 t2Tajreed: {},
                 t3Zay: {},
@@ -901,12 +746,11 @@
                 t7Tahlil: {},
                 t8Tarkeeb: {}
             };
-            activeSinShinSelected = null;
             renderAll();
         }
 
-        // CONFETTI EFFECT
-        function triggerConfetti() {
+        // Simple Confetti Cannon
+        function startConfetti() {
             const canvas = document.getElementById('confetti-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
@@ -915,35 +759,32 @@
             const particles = Array.from({ length: 80 }).map(() => ({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height - canvas.height,
-                color: ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'][Math.floor(Math.random() * 5)],
                 size: Math.random() * 8 + 4,
-                vy: Math.random() * 3 + 2,
-                vx: Math.random() * 2 - 1
+                color: ['#ff4757', '#2ed573', '#1e90ff', '#ffa502', '#9b59b6'][Math.floor(Math.random() * 5)],
+                speedY: Math.random() * 4 + 2,
+                speedX: Math.random() * 2 - 1
             }));
 
-            let frames = 0;
-            function loop() {
+            let frame = 0;
+            function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => {
-                    p.y += p.vy;
-                    p.x += p.vx;
+                    p.y += p.speedY;
+                    p.x += p.speedX;
                     ctx.fillStyle = p.color;
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     ctx.fill();
                 });
-
-                frames++;
-                if (frames < 180) requestAnimationFrame(loop);
+                frame++;
+                if (frame < 120) requestAnimationFrame(animate);
                 else ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
-            loop();
+            animate();
         }
 
-        // Initialize App
-        window.onload = function() {
-            renderAll();
-        };
+        // Initialize on Load
+        renderAll();
     </script>
 </body>
 </html>
